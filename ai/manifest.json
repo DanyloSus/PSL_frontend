@@ -1,0 +1,407 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "lastUpdated": "2026-04-10",
+  "description": "Registry of all AI knowledge artifacts for the React Fast Template. Used by platform adapters (Claude Code, Copilot) to discover and load rules, skills, agents, and protocols.",
+
+  "rules": [
+    {
+      "id": "architecture",
+      "path": "rules/architecture.md",
+      "tier": 0,
+      "tags": ["fsd", "boundaries", "feature-isolation", "shared-layers"],
+      "eslintAreas": ["eslint-plugin-boundaries"],
+      "summary": "Feature-Sliced Design boundaries enforced by eslint-plugin-boundaries. Features cannot import from other features. Shared layers (components/hooks/lib/types/utils) cannot import from features/app."
+    },
+    {
+      "id": "code-style",
+      "path": "rules/code-style.md",
+      "tier": 0,
+      "tags": [
+        "console",
+        "ternary",
+        "equality",
+        "naming",
+        "blank-line",
+        "id-length"
+      ],
+      "eslintAreas": ["core", "react", "react-hooks"],
+      "summary": "No console.log. No nested ternary. Strict equality (eqeqeq). Boolean naming (is/has/should/can/did/will/are). Blank line before return. id-length ≥2."
+    },
+    {
+      "id": "imports",
+      "path": "rules/imports.md",
+      "tier": 0,
+      "tags": [
+        "import-order",
+        "alias",
+        "no-cycle",
+        "no-relative",
+        "no-duplicates"
+      ],
+      "eslintAreas": ["eslint-plugin-import", "no-restricted-imports"],
+      "summary": "Always use @/ alias — no ../../ imports. No import cycles. Strict import order (builtin → external → internal → parent/sibling → index → object), alphabetized."
+    },
+    {
+      "id": "typescript",
+      "path": "rules/typescript.md",
+      "tier": 0,
+      "tags": ["any", "unknown", "destructuring", "optional-chain", "naming"],
+      "eslintAreas": ["typescript-eslint"],
+      "summary": "No `any` (use unknown + narrow). prefer-destructuring + prefer-optional-chain. Boolean variables/params must use is/has/should/can/did/will/are prefixes."
+    },
+    {
+      "id": "naming",
+      "path": "rules/naming.md",
+      "tier": 0,
+      "tags": ["kebab-case", "filename", "folder", "boolean", "hooks"],
+      "eslintAreas": ["check-file"],
+      "summary": "Files and folders are kebab-case. Hooks start with use*. Components are PascalCase exports in kebab-case files. Test files: *.test.ts(x). Story files: *.stories.tsx."
+    },
+    {
+      "id": "file-health",
+      "path": "rules/file-health.md",
+      "tier": 1,
+      "tags": ["max-lines", "srp", "split"],
+      "eslintAreas": ["max-lines"],
+      "summary": "Components ≤150 lines (warn). Split smart and dumb components. Single Responsibility — one component, one job."
+    },
+    {
+      "id": "ui-theme",
+      "path": "rules/ui-theme.md",
+      "tier": 1,
+      "tags": ["tailwind", "cn", "cva", "shadcn", "radix"],
+      "eslintAreas": [],
+      "summary": "Use cn() from @/utils/cn for class merging. CVA for variant-based components. Tailwind v4 CSS variables for theme tokens. Reuse shadcn primitives in src/ui/."
+    },
+    {
+      "id": "modularity",
+      "path": "rules/modularity.md",
+      "tier": 1,
+      "tags": ["feature", "barrel", "structure", "subfolders"],
+      "eslintAreas": ["eslint-plugin-boundaries"],
+      "summary": "Each feature can have api/components/hooks/stores/types/utils/assets — only the subfolders it needs. No circular dependencies between features. No barrel files unless they aid tree-shaking."
+    },
+    {
+      "id": "testing",
+      "path": "rules/testing.md",
+      "tier": 1,
+      "tags": ["vitest", "rtl", "jest-dom", "playwright", "coverage"],
+      "eslintAreas": ["@vitest/eslint-plugin", "testing-library", "jest-dom"],
+      "summary": "Component tests via Vitest + React Testing Library. Use jest-dom matchers. Hook tests via renderHook. E2E via Playwright. No render without cleanup leaks."
+    }
+  ],
+
+  "skills": [
+    {
+      "id": "react-feature-sliced-design",
+      "path": "skills/react-feature-sliced-design/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "feature",
+        "scaffold",
+        "FSD",
+        "feature-sliced",
+        "structure",
+        "new feature"
+      ],
+      "summary": "Feature-Sliced Design layout. Features in src/features/<name>/. Boundary rules enforced by eslint-plugin-boundaries."
+    },
+    {
+      "id": "react-presentation-layer",
+      "path": "skills/react-presentation-layer/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "component",
+        "page",
+        "smart",
+        "dumb",
+        "hook",
+        "useX",
+        "presentation",
+        "UI"
+      ],
+      "summary": "Smart vs dumb components. Hooks pattern. ≤150-line rule. Composition over inheritance."
+    },
+    {
+      "id": "react-tanstack-router",
+      "path": "skills/react-tanstack-router/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "route",
+        "router",
+        "navigate",
+        "link",
+        "search params",
+        "tanstack router",
+        "createFileRoute"
+      ],
+      "summary": "File-based routing in src/routes/. Type-safe links. Search params with Zod validation. Loaders + pendingComponent."
+    },
+    {
+      "id": "react-tanstack-query",
+      "path": "skills/react-tanstack-query/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "query",
+        "mutation",
+        "useQuery",
+        "useMutation",
+        "cache",
+        "invalidate",
+        "queryKey",
+        "tanstack query"
+      ],
+      "summary": "queryOptions pattern, query key factory per feature, mutation onSuccess invalidation, suspense queries."
+    },
+    {
+      "id": "react-zustand-state",
+      "path": "skills/react-zustand-state/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "store",
+        "zustand",
+        "state",
+        "selector",
+        "persist",
+        "middleware"
+      ],
+      "summary": "Slice selectors (no whole-store reads). persist middleware with partialize. Combine with immer if needed."
+    },
+    {
+      "id": "react-hook-form-zod",
+      "path": "skills/react-hook-form-zod/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "form",
+        "validation",
+        "RHF",
+        "react-hook-form",
+        "Zod",
+        "resolver",
+        "schema"
+      ],
+      "summary": "RHF + @hookform/resolvers/zod. Schema in feature/types/*.schema.ts. Type via z.infer."
+    },
+    {
+      "id": "react-shadcn-tailwind",
+      "path": "skills/react-shadcn-tailwind/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "shadcn",
+        "tailwind",
+        "button",
+        "variant",
+        "CVA",
+        "theme",
+        "radix"
+      ],
+      "summary": "shadcn/ui wrappers in src/ui/. CVA for variants. cn() for class merging. Tailwind v4 + CSS variables for tokens."
+    },
+    {
+      "id": "react-axios-api",
+      "path": "skills/react-axios-api/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "axios",
+        "api",
+        "http",
+        "request",
+        "interceptor",
+        "endpoint"
+      ],
+      "summary": "Use shared api instance from @/lib/api. Feature API files in features/<feat>/api/. Response interceptor unwraps response.data."
+    },
+    {
+      "id": "react-error-handling",
+      "path": "skills/react-error-handling/SKILL.md",
+      "tier": 1,
+      "triggers": ["error", "boundary", "fallback", "retry", "ErrorBoundary"],
+      "summary": "react-error-boundary for UI errors. Query error states. Mutation error toast pattern."
+    },
+    {
+      "id": "react-testing",
+      "path": "skills/react-testing/SKILL.md",
+      "tier": 1,
+      "triggers": [
+        "test",
+        "vitest",
+        "RTL",
+        "render",
+        "renderHook",
+        "e2e",
+        "playwright",
+        "spec"
+      ],
+      "summary": "Vitest + RTL component tests. jest-dom matchers. renderHook for hooks. Playwright for E2E in three browsers."
+    },
+    {
+      "id": "react-storybook",
+      "path": "skills/react-storybook/SKILL.md",
+      "tier": 2,
+      "triggers": ["story", "stories", "storybook"],
+      "summary": "*.stories.tsx co-located. CSF3 format. Addons: a11y, docs, vitest, onboarding."
+    },
+    {
+      "id": "react-code-quality",
+      "path": "skills/react-code-quality/SKILL.md",
+      "tier": 2,
+      "triggers": [
+        "quality",
+        "lint",
+        "format",
+        "review",
+        "eslint",
+        "prettier",
+        "audit"
+      ],
+      "summary": "ESLint + Prettier + tsc as quality gates. Lint:fix, format, build for type check."
+    },
+    {
+      "id": "git-commit",
+      "path": "skills/git-commit/SKILL.md",
+      "tier": 1,
+      "triggers": ["commit", "git commit", "commit message", "stage changes"],
+      "summary": "Conventional Commits generator. Stages, analyzes diff, picks type+scope, writes message. Pre-commit: lint-staged runs."
+    },
+    {
+      "id": "git-squash",
+      "path": "skills/git-squash/SKILL.md",
+      "tier": 1,
+      "triggers": ["squash", "git squash", "compress commits"],
+      "summary": "Squash all branch commits into one vs main. Preserves ticket refs. Asks user confirmation."
+    },
+    {
+      "id": "git-commit-squash",
+      "path": "skills/git-commit-squash/SKILL.md",
+      "tier": 1,
+      "triggers": ["commit and squash", "full commit", "commit then squash"],
+      "summary": "Combined: commit current changes then squash branch into one. Sequential orchestration of git-commit + git-squash."
+    },
+    {
+      "id": "pull-request-description",
+      "path": "skills/pull-request-description/SKILL.md",
+      "tier": 2,
+      "triggers": ["PR", "pull request", "branch summary", "PR description"],
+      "summary": "PR description generator. Title under 70 chars. Sections: Summary, Test plan, Screenshots."
+    },
+    {
+      "id": "self-expansion",
+      "path": "skills/self-expansion/SKILL.md",
+      "tier": 2,
+      "triggers": [
+        "create skill",
+        "create rule",
+        "new skill",
+        "new rule",
+        "expand",
+        "self-expansion"
+      ],
+      "summary": "Protocol for adding new skills/rules. Template-based, manifest-registered, duplicate-checked."
+    },
+    {
+      "id": "pipeline-orchestration",
+      "path": "skills/pipeline-orchestration/SKILL.md",
+      "tier": 2,
+      "triggers": [
+        "pipeline",
+        "scenario",
+        "engine",
+        "DAG",
+        "batch",
+        "multi-step",
+        "orchestrate"
+      ],
+      "summary": "DAG pipeline engine for multi-step tasks. 11 atomic nodes, 5 seed scenarios. Topological sort, memoization, branch pruning."
+    }
+  ],
+
+  "agents": [
+    {
+      "id": "code-reviewer",
+      "path": "agents/code-reviewer.md",
+      "scope": "read-only",
+      "summary": "Reviews code against ai/rules/. Runs lint + type check. Never modifies code."
+    },
+    {
+      "id": "architecture-auditor",
+      "path": "agents/architecture-auditor.md",
+      "scope": "read-only",
+      "summary": "Audits FSD boundaries, import cycles, feature isolation, shared-layer purity."
+    },
+    {
+      "id": "test-writer",
+      "path": "agents/test-writer.md",
+      "scope": "read-src-write-test",
+      "summary": "Writes Vitest + RTL tests following react-testing skill. Writes to *.test.ts(x) only."
+    },
+    {
+      "id": "docs-keeper",
+      "path": "agents/docs-keeper.md",
+      "scope": "read-write-docs",
+      "summary": "Syncs project docs with code changes. Writes to docs/ and ai/ only."
+    },
+    {
+      "id": "skill-creator",
+      "path": "agents/skill-creator.md",
+      "scope": "write-ai",
+      "summary": "Creates new skills/rules following self-expansion protocol. Writes to ai/ only."
+    }
+  ],
+
+  "protocols": [
+    {
+      "id": "self-verification",
+      "path": "protocols/self-verification.md",
+      "summary": "Post-task quality check. Scopes: quick (lint), standard (lint+build), full (lint+build+test)."
+    },
+    {
+      "id": "self-expansion",
+      "path": "protocols/self-expansion.md",
+      "summary": "How agents create new skills/rules. Template → manifest → verify."
+    },
+    {
+      "id": "token-budget",
+      "path": "protocols/token-budget.md",
+      "summary": "Tiered context loading. Never load all skills. Max 5 per task."
+    },
+    {
+      "id": "agent-orchestration",
+      "path": "protocols/agent-orchestration.md",
+      "summary": "Sub-agent delegation: parallel for independent tasks, sequential for dependent."
+    }
+  ],
+
+  "templates": [
+    {
+      "id": "rule-template",
+      "path": "templates/_RULE_TEMPLATE.md",
+      "description": "Standard template for creating new enforcement rules."
+    },
+    {
+      "id": "skill-template",
+      "path": "templates/_SKILL_TEMPLATE.md",
+      "description": "Full template for creating new knowledge skills."
+    },
+    {
+      "id": "agent-template",
+      "path": "templates/_AGENT_TEMPLATE.md",
+      "description": "Standard template for creating new sub-agent personas."
+    },
+    {
+      "id": "scenario-template",
+      "path": "engine/_SCENARIO_TEMPLATE.md",
+      "description": "Template for creating new DAG pipeline scenarios."
+    }
+  ],
+
+  "engine": {
+    "description": "DAG pipeline engine for complex multi-step tasks. See ai/engine/ and ai/README.md §4.",
+    "registry": "engine/registry.json",
+    "nodesPath": "engine/nodes/",
+    "scenariosPath": "engine/scenarios/",
+    "nodeCount": 11,
+    "scenarioCount": 5,
+    "selfExpansion": true
+  }
+}
