@@ -6,7 +6,9 @@ export const authEvents = {
   onUnauthenticated(listener: Listener) {
     listeners.add(listener);
 
-    return () => listeners.delete(listener);
+    return () => {
+      listeners.delete(listener);
+    };
   },
   emitUnauthenticated() {
     listeners.forEach(listener => listener());
