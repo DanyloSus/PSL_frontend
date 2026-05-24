@@ -242,5 +242,16 @@ export default defineConfig([
       'check-file/filename-naming-convention': 'off',
     },
   },
+  // Exempt TanStack Router layout/group folders (_public, _authed, etc.)
+  {
+    files: ['src/routes/**/*'],
+    plugins: { 'check-file': checkFile },
+    rules: {
+      'check-file/folder-naming-convention': 'off',
+      'check-file/filename-naming-convention': 'off',
+      'react-refresh/only-export-components': 'off',
+      'no-use-before-define': 'off',
+    },
+  },
   ...storybook.configs["flat/recommended"]
 ])
