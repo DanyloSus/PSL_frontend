@@ -45,8 +45,6 @@ export function LoginForm() {
         label="IDENTIFIER"
         type="email"
         autoComplete="email"
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus
         placeholder="you@psl.io"
         error={form.formState.errors.email?.message}
         {...form.register("email")}
