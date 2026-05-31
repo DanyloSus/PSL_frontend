@@ -1,8 +1,8 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { api } from "@/lib/api";
+import { queryKeys } from "@/lib/query-keys";
 
-import { userKeys } from "./stats";
 import type { ActivityHistoryEntry, ActivityHistoryQuery } from "../types/user";
 
 function fetchHistory(params: ActivityHistoryQuery) {
@@ -14,6 +14,6 @@ function fetchHistory(params: ActivityHistoryQuery) {
 
 export const historyQueryOptions = (params: ActivityHistoryQuery = {}) =>
   queryOptions({
-    queryKey: userKeys.history(params.limit, params.before),
+    queryKey: queryKeys.users.history(params),
     queryFn: () => fetchHistory(params)
   });
