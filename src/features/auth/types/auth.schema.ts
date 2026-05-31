@@ -21,17 +21,21 @@ export const loginSchema = z.object({
 export type RegisterValues = z.infer<typeof registerSchema>;
 export type LoginValues = z.infer<typeof loginSchema>;
 
-export type UserRole = "USER" | "ADMIN";
+export const userRoleSchema = z.enum(["USER", "ADMIN"]);
 
-export interface UserPublic {
-  id: string;
-  email: string;
-  username: string;
-  role: UserRole;
-  global_xp: number;
-  global_level: number;
-}
+export const userPublicSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  username: z.string(),
+  role: userRoleSchema,
+  global_xp: z.number(),
+  global_level: z.number()
+});
 
-export interface AuthResponse {
-  user: UserPublic;
-}
+export const authResponseSchema = z.object({
+  user: userPublicSchema
+});
+
+export type UserRole = z.infer<typeof userRoleSchema>;
+export type UserPublic = z.infer<typeof userPublicSchema>;
+export type AuthResponse = z.infer<typeof authResponseSchema>;
