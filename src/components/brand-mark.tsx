@@ -18,13 +18,10 @@ export function BrandMark({ size = "md", className }: Props) {
     <div className={cn("flex items-center gap-3", className)}>
       <div
         className={cn(
-          "bg-primary text-primary-foreground shadow-glow grid place-items-center font-extrabold",
+          "bg-primary text-primary-foreground shadow-glow grid place-items-center font-extrabold [clip-path:polygon(0_0,100%_0,100%_72%,86%_100%,0_100%)]",
           dims.box,
           dims.letter
         )}
-        style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 72%, 86% 100%, 0 100%)"
-        }}
       >
         P
       </div>
