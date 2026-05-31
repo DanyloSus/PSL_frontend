@@ -1,4 +1,7 @@
-export type ActivityInputType = "BINARY" | "QUANTITY";
+export enum ActivityInputType {
+  Binary = "BINARY",
+  Quantity = "QUANTITY"
+}
 
 export interface ActivityEffectOut {
   stat_id: string;
