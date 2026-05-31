@@ -4,6 +4,8 @@ import { CornerFrame } from "@/components/corner-frame";
 import { LevelOrb } from "@/components/level-orb";
 import { Pill } from "@/components/pill";
 
+import { globalProgress } from "../utils/global-progress";
+
 interface Props {
   username: string;
   globalLevel: number;
@@ -12,8 +14,6 @@ interface Props {
   streak?: number;
 }
 
-const NEXT_LEVEL_STEP = 200;
-
 export function HeroPanel({
   username,
   globalLevel,
@@ -21,8 +21,7 @@ export function HeroPanel({
   totalLogs,
   streak = 0
 }: Props) {
-  const need = NEXT_LEVEL_STEP * globalLevel + NEXT_LEVEL_STEP;
-  const into = Math.min(need, globalXp);
+  const { into, need } = globalProgress(globalXp, globalLevel);
 
   return (
     <CornerFrame
