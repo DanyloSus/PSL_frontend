@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useId } from "react";
 
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
@@ -12,7 +12,8 @@ interface Props extends React.ComponentProps<"input"> {
 
 export const CyberField = forwardRef<HTMLInputElement, Props>(
   ({ label, hint, error, className, id, ...props }, ref) => {
-    const inputId = id ?? `cf-${label.toLowerCase().replace(/\s/g, "-")}`;
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
     const hasError = Boolean(error);
 
     return (
