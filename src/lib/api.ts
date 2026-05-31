@@ -45,18 +45,21 @@ async function refreshSession() {
   await api.post(REFRESH_PATH);
 }
 
+function isRefreshRequest(url: string | undefined): boolean {
+  if (!url) return false;
+  const pathname = (url.split("?")[0] ?? "").replace(/\/+$/, "");
+
+  return pathname.endsWith(REFRESH_PATH);
+}
+
 api.interceptors.response.use(
   response => response.data,
   async (error: AxiosError) => {
     const original = error.config as RetryConfig | undefined;
     const status = error.response?.status;
-    const isRefreshCall = original?.url?.includes(REFRESH_PATH);
+    const isRefreshCall = isRefreshRequest(original?.url);
 
     if (status !== 401 || !original || original._retried || isRefreshCall) {
-      if (status === 401 && isRefreshCall) {
-        authEvents.emitUnauthenticated();
-      }
-
       return Promise.reject(error);
     }
 
