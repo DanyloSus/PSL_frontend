@@ -10,7 +10,7 @@ export function Scanlines({ className }: { className?: string }) {
       )}
       style={{
         backgroundImage:
-          "repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px)"
+          "repeating-linear-gradient(0deg, var(--scanline) 0 1px, transparent 1px 3px)"
       }}
     />
   );
