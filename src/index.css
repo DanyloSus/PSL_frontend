@@ -88,6 +88,7 @@
   --faint: #4a5266;
   --border-soft: rgba(255, 255, 255, 0.06);
   --danger: #ff5e5e;
+  --scanline: rgba(255, 255, 255, 0.025);
 }
 
 @keyframes pslBlink {
