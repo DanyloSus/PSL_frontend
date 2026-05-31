@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { cn } from "@/utils/cn";
 
 interface Props {
@@ -18,14 +16,7 @@ export function XpBar({
   className
 }: Props) {
   const safeMax = Math.max(1, max);
-  const target = Math.max(0, Math.min(100, (value / safeMax) * 100));
-  const [pct, setPct] = useState(0);
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setPct(target));
-
-    return () => cancelAnimationFrame(id);
-  }, [target]);
+  const pct = Math.max(0, Math.min(100, (value / safeMax) * 100));
 
   return (
     <div
@@ -40,7 +31,7 @@ export function XpBar({
         style={{
           width: `${pct}%`,
           background: "linear-gradient(90deg, var(--acid), var(--acid-2))",
-          boxShadow: "0 0 10px rgba(214, 255, 0, 0.55)"
+          boxShadow: "var(--shadow-glow-sm)"
         }}
       >
         <span

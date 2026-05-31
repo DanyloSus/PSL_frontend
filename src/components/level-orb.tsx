@@ -89,7 +89,7 @@ export function LevelOrb({ level, into, need, size = 140 }: Props) {
           className="text-foreground leading-none font-bold"
           style={{
             fontSize: (size / 140) * 52,
-            textShadow: "0 0 18px rgba(214,255,0,0.4)"
+            textShadow: "var(--shadow-glow-sm)"
           }}
         >
           {level}
