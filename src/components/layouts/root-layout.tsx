@@ -1,23 +1,27 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect } from "react";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useRouter } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { queryConfig } from "@/lib/react-query";
+import { authEvents } from "@/lib/auth-events";
+import { queryKeys } from "@/lib/query-keys";
 import { Spinner } from "@/ui/spinner";
 
 import { MainErrorFallback } from "../errors";
 
 export const RootLayout = () => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: queryConfig
-      })
-  );
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    return authEvents.onUnauthenticated(() => {
+      queryClient.setQueryData(queryKeys.auth.me, null);
+      void router.navigate({ to: "/login" });
+    });
+  }, [queryClient, router]);
 
   return (
     <Suspense
@@ -28,12 +32,10 @@ export const RootLayout = () => {
       }
     >
       <ErrorBoundary FallbackComponent={MainErrorFallback}>
-        <QueryClientProvider client={queryClient}>
-          <Outlet />
+        <Outlet />
 
-          <TanStackRouterDevtools />
-          <ReactQueryDevtools />
-        </QueryClientProvider>
+        <TanStackRouterDevtools />
+        <ReactQueryDevtools />
       </ErrorBoundary>
     </Suspense>
   );
