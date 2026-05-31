@@ -10,7 +10,7 @@ interface Props {
   username: string;
   globalLevel: number;
   globalXp: number;
-  totalLogs: number;
+  recentLogs: number;
   streak?: number;
 }
 
@@ -18,7 +18,7 @@ export function HeroPanel({
   username,
   globalLevel,
   globalXp,
-  totalLogs,
+  recentLogs,
   streak = 0
 }: Props) {
   const { into, need } = globalProgress(globalXp, globalLevel);
@@ -61,8 +61,8 @@ export function HeroPanel({
             />
             <Pill
               icon={Bolt}
-              label={totalLogs}
-              sub="LOGS"
+              label={recentLogs}
+              sub="RECENT"
             />
           </div>
         </div>
