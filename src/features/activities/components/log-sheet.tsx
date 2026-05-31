@@ -13,9 +13,15 @@ import { cn } from "@/utils/cn";
 
 import { QuantityStepper } from "./quantity-stepper";
 import { MAX_QUANTITY, useLogSheet } from "../hooks/use-log-sheet";
+import { ActivityInputType } from "../types/activity";
 
 const TAG_NEW_ENTRY = "// NEW ENTRY";
 const TAG_NO_MATCHES = "// NO MATCHES";
+
+const INPUT_TYPE_LABEL: Record<ActivityInputType, string> = {
+  [ActivityInputType.Binary]: "BINARY",
+  [ActivityInputType.Quantity]: "QUANTIFIED"
+};
 
 interface Props {
   isOpen: boolean;
@@ -76,7 +82,7 @@ export function LogSheet({ isOpen, onOpenChange }: Props) {
                 {activity.title}
               </div>
               <div className="text-muted-foreground mt-1 font-mono text-[10px]">
-                {activity.input_type === "QUANTITY" ? "QUANTIFIED" : "BINARY"}
+                {INPUT_TYPE_LABEL[activity.input_type]}
               </div>
             </button>
           ))}
@@ -88,7 +94,7 @@ export function LogSheet({ isOpen, onOpenChange }: Props) {
         </div>
         {sheet.selected && (
           <div className="border-border-soft mt-3 border-t pt-3">
-            {sheet.selected.input_type === "QUANTITY" && (
+            {sheet.selected.input_type === ActivityInputType.Quantity && (
               <QuantityStepper
                 value={sheet.quantity}
                 min={1}
