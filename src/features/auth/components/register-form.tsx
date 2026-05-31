@@ -44,8 +44,6 @@ export function RegisterForm() {
       <CyberField
         label="HANDLE"
         autoComplete="username"
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus
         placeholder="davyd"
         error={form.formState.errors.username?.message}
         {...form.register("username")}
