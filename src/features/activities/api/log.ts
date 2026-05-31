@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "@/lib/api";
+import { queryKeys } from "@/lib/query-keys";
 
 import type {
   LogActivityRequest,
@@ -20,10 +21,10 @@ export function useLogActivity() {
   return useMutation({
     mutationFn: logActivity,
     onSuccess: () => {
-      void client.invalidateQueries({ queryKey: ["auth", "me"] });
-      void client.invalidateQueries({ queryKey: ["users", "me", "stats"] });
+      void client.invalidateQueries({ queryKey: queryKeys.auth.me });
+      void client.invalidateQueries({ queryKey: queryKeys.users.stats() });
       void client.invalidateQueries({
-        queryKey: ["users", "me", "activity-history"]
+        queryKey: queryKeys.users.historyAll
       });
     }
   });
