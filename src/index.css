@@ -175,14 +175,16 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background-image:
-      radial-gradient(
-        120% 80% at 50% 0%,
-        rgba(214, 255, 0, 0.08) 0%,
-        rgba(214, 255, 0, 0.03) 30%,
-        transparent 60%
-      ),
-      linear-gradient(180deg, #05060a 0%, #05060a 100%);
+    background-image: radial-gradient(
+      120% 80% at 50% 0%,
+      rgba(214, 255, 0, 0.08) 0%,
+      rgba(214, 255, 0, 0.03) 30%,
+      transparent 60%
+    );
+  }
+
+  html {
+    scrollbar-width: none;
   }
 
   *::-webkit-scrollbar {
