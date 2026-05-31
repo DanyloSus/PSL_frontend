@@ -7,6 +7,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { authEvents } from "@/lib/auth-events";
+import { queryKeys } from "@/lib/query-keys";
 import { Spinner } from "@/ui/spinner";
 
 import { MainErrorFallback } from "../errors";
@@ -17,7 +18,7 @@ export const RootLayout = () => {
 
   useEffect(() => {
     return authEvents.onUnauthenticated(() => {
-      queryClient.setQueryData(["auth", "me"], null);
+      queryClient.setQueryData(queryKeys.auth.me, null);
       void router.navigate({ to: "/login" });
     });
   }, [queryClient, router]);

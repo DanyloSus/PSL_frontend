@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp, type LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 import { XpBar } from "@/components/xp-bar";
 import { cn } from "@/utils/cn";
@@ -10,7 +10,6 @@ interface Props {
   level: number;
   xpInto: number;
   xpForNext: number;
-  recentDelta?: number;
   onClick?: () => void;
   className?: string;
 }
@@ -22,13 +21,9 @@ export function StatCard({
   level,
   xpInto,
   xpForNext,
-  recentDelta = 0,
   onClick,
   className
 }: Props) {
-  const isPositive = recentDelta > 0;
-  const DeltaIcon = isPositive ? ArrowUp : ArrowDown;
-
   return (
     <button
       type="button"
@@ -52,7 +47,7 @@ export function StatCard({
         </div>
         <div
           className="text-primary text-[22px] leading-none font-bold"
-          style={{ textShadow: "0 0 12px rgba(214,255,0,0.4)" }}
+          style={{ textShadow: "var(--shadow-glow-sm)" }}
         >
           {level}
         </div>
@@ -66,17 +61,6 @@ export function StatCard({
         <span>
           {xpInto}/{xpForNext} XP
         </span>
-        {recentDelta !== 0 && (
-          <span
-            className={cn(
-              "flex items-center gap-0.5",
-              isPositive ? "text-acid-2" : "text-danger"
-            )}
-          >
-            <DeltaIcon className="size-3" />
-            {Math.abs(recentDelta)}
-          </span>
-        )}
       </div>
     </button>
   );
