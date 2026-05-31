@@ -13,6 +13,7 @@ import {
 import { Button } from "@/ui/button";
 
 import { CyberField } from "./cyber-field";
+import { FormError } from "./form-error";
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -55,11 +56,10 @@ export function LoginForm() {
         type="password"
         autoComplete="current-password"
         placeholder="••••••••"
-        error={
-          form.formState.errors.password?.message ?? submitError ?? undefined
-        }
+        error={form.formState.errors.password?.message}
         {...form.register("password")}
       />
+      <FormError message={submitError} />
       <Button
         type="submit"
         disabled={login.isPending}
