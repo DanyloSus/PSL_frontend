@@ -1,5 +1,3 @@
-import { cn } from "@/utils/cn";
-
 interface Props {
   value: number;
   min?: number;
@@ -40,9 +38,7 @@ export function QuantityStepper({
             key={step}
             type="button"
             onClick={() => onChange(clamp(value + step))}
-            className={cn(
-              "border-border-soft text-foreground h-8 min-w-8 rounded-sm border px-2 font-mono text-[11px] font-semibold"
-            )}
+            className="border-border-soft text-foreground h-8 min-w-8 rounded-sm border px-2 font-mono text-[11px] font-semibold"
           >
             {step > 0 ? `+${step}` : step}
           </button>
