@@ -64,7 +64,10 @@ function DashboardPage() {
       />
       <StatsGrid stats={rows} />
       <div className="mt-6">
-        <SectionTitle label="RECENT LOGS" sub={`${recent.length} ENTRIES`} />
+        <SectionTitle
+          label="RECENT LOGS"
+          sub={`${recent.length} ENTRIES`}
+        />
         {recent.length === 0 && (
           <p className="text-faint mt-3 font-mono text-[11px] tracking-[1px]">
             {TAG_NO_ACTIVITY}
@@ -97,7 +100,10 @@ function DashboardPage() {
           })}
         </ul>
       </div>
-      <LogSheet isOpen={isLogOpen} onOpenChange={setIsLogOpen} />
+      <LogSheet
+        isOpen={isLogOpen}
+        onOpenChange={setIsLogOpen}
+      />
     </div>
   );
 }
