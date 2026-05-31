@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { activitiesQueryOptions } from "../api/list";
 import { useLogActivity } from "../api/log";
-import type { ActivityTemplateOut } from "../types/activity";
+import { ActivityInputType, type ActivityTemplateOut } from "../types/activity";
 
 export const MAX_QUANTITY = 600;
 
@@ -40,7 +40,8 @@ export function useLogSheet(onClose: () => void) {
     if (!selected) return;
     await logActivity.mutateAsync({
       activityTemplateId: selected.id,
-      quantity: selected.input_type === "QUANTITY" ? quantity : 1
+      quantity:
+        selected.input_type === ActivityInputType.Quantity ? quantity : 1
     });
     reset();
     onClose();
