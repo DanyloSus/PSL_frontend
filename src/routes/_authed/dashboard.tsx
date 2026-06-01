@@ -37,6 +37,7 @@ function DashboardPage() {
 
   const rows = toStatRows(stats);
   const feed = toFeedEntries(recent, stats, activities);
+  const activeCount = stats.filter(entry => entry.level >= 1).length;
 
   return (
     <div className="grid grid-cols-1 gap-5 p-4 xl:grid-cols-[1fr_320px]">
@@ -50,7 +51,7 @@ function DashboardPage() {
         <LogCta onOpen={open} />
         <SectionTitle
           label="ATTRIBUTES"
-          sub={`${stats.length}/${stats.length} ACTIVE`}
+          sub={`${activeCount}/${stats.length} ACTIVE`}
         />
         <StatsGrid stats={rows} />
       </div>
