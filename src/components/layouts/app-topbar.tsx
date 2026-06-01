@@ -47,7 +47,7 @@ export function AppTopbar({
       <div className="flex items-center gap-2">
         <button
           type="button"
-          className="border-border-soft text-muted-foreground hover:text-foreground hidden items-center gap-2 rounded-sm border bg-white/[0.02] px-3 py-1.5 font-mono text-[10px] tracking-[1px] transition-colors sm:flex"
+          className="border-border-soft text-muted-foreground hover:text-foreground bg-surface-subtle hidden items-center gap-2 rounded-sm border px-3 py-1.5 font-mono text-[10px] tracking-[1px] transition-colors sm:flex"
         >
           <Search className="size-3.5" />
           SEARCH ACTIVITIES

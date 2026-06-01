@@ -37,6 +37,7 @@
   --color-panel-solid: var(--panel-solid);
   --color-faint: var(--faint);
   --color-border-soft: var(--border-soft);
+  --color-surface-subtle: var(--surface-subtle);
   --color-danger: var(--danger);
 
   --radius-sm: calc(var(--radius) * 0.6);
@@ -87,6 +88,7 @@
   --panel-solid: #0e1422;
   --faint: #4a5266;
   --border-soft: rgba(255, 255, 255, 0.06);
+  --surface-subtle: rgba(255, 255, 255, 0.03);
   --danger: #ff5e5e;
   --scanline: rgba(255, 255, 255, 0.025);
 }

@@ -17,7 +17,7 @@ export function SidebarNavItem({ to, label, icon: IconComp }: Props) {
       }}
       inactiveProps={{
         className:
-          "border-transparent text-muted-foreground hover:text-foreground hover:bg-white/[0.03]"
+          "border-transparent text-muted-foreground hover:text-foreground hover:bg-surface-subtle"
       }}
       className="group flex items-center gap-2.5 rounded-sm border px-3 py-2 text-[13px] font-semibold transition-colors"
     >
