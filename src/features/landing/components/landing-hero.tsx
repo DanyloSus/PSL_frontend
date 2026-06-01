@@ -32,7 +32,7 @@ export function LandingHero() {
         </Link>
         <Link
           to="/login"
-          className="border-border text-foreground inline-flex h-12 items-center rounded-sm border px-6 text-sm font-bold tracking-[1px] hover:bg-white/[0.03]"
+          className="border-border text-foreground hover:bg-surface-subtle inline-flex h-12 items-center rounded-sm border px-6 text-sm font-bold tracking-[1px]"
         >
           LOGIN
         </Link>
