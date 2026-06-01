@@ -3,7 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { AuthCard } from "@/features/auth/components/auth-card";
 import { RegisterForm } from "@/features/auth/components/register-form";
 
-export const Route = createFileRoute("/_public/register")({
+export const Route = createFileRoute("/_public/_auth/register")({
   component: RegisterPage
 });
 
