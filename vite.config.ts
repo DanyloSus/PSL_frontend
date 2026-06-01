@@ -14,6 +14,16 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
+const DEV_API_PROXY = process.env.VITE_DEV_API_PROXY ?? "http://localhost:8000";
+
+const apiProxy = {
+  "/api": {
+    target: DEV_API_PROXY,
+    changeOrigin: true,
+    secure: false
+  }
+};
+
 export default defineConfig({
   base: "./",
   plugins: [
@@ -49,10 +59,12 @@ export default defineConfig({
     })
   ],
   server: {
-    port: 3000
+    port: 3000,
+    proxy: apiProxy
   },
   preview: {
-    port: 3000
+    port: 3000,
+    proxy: apiProxy
   },
   optimizeDeps: {
     exclude: ["fsevents"]

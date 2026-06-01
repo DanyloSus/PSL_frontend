@@ -11,6 +11,8 @@ import { readCookie } from "@/utils/cookie";
 const CSRF_COOKIE = "csrf_token";
 const CSRF_HEADER = "X-CSRF-Token";
 const REFRESH_PATH = "/auth/refresh";
+const MUTATING_METHODS = new Set(["post", "put", "patch", "delete"]);
+const CSRF_EXEMPT_PATHS = ["/auth/login", "/auth/register", REFRESH_PATH];
 
 type RetryConfig = InternalAxiosRequestConfig & { _retried?: boolean };
 
@@ -19,9 +21,21 @@ export const api = Axios.create({
   withCredentials: true
 });
 
+function isCsrfExempt(url: string | undefined): boolean {
+  if (!url) return false;
+  const pathname = (url.split("?")[0] ?? "").replace(/\/+$/, "");
+
+  return CSRF_EXEMPT_PATHS.some(path => pathname.endsWith(path));
+}
+
 function requestInterceptor(config: InternalAxiosRequestConfig) {
-  if (config.headers) {
-    config.headers.Accept = "application/json";
+  if (!config.headers) return config;
+  config.headers.Accept = "application/json";
+
+  const method = (config.method ?? "get").toLowerCase();
+  const isMutating = MUTATING_METHODS.has(method);
+
+  if (isMutating && !isCsrfExempt(config.url)) {
     const csrf = readCookie(CSRF_COOKIE);
     if (csrf) {
       config.headers[CSRF_HEADER] = csrf;
