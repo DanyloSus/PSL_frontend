@@ -15,6 +15,8 @@ import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicRegisterRouteImport } from './routes/_public/register'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
+import { Route as AuthedAttributesRouteImport } from './routes/_authed/attributes'
+import { Route as AuthedActivityLogRouteImport } from './routes/_authed/activity-log'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -44,15 +46,29 @@ const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthedRoute,
 } as any)
+const AuthedAttributesRoute = AuthedAttributesRouteImport.update({
+  id: '/attributes',
+  path: '/attributes',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedActivityLogRoute = AuthedActivityLogRouteImport.update({
+  id: '/activity-log',
+  path: '/activity-log',
+  getParentRoute: () => AuthedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/activity-log': typeof AuthedActivityLogRoute
+  '/attributes': typeof AuthedAttributesRoute
   '/dashboard': typeof AuthedDashboardRoute
   '/login': typeof PublicLoginRoute
   '/register': typeof PublicRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
+  '/activity-log': typeof AuthedActivityLogRoute
+  '/attributes': typeof AuthedAttributesRoute
   '/dashboard': typeof AuthedDashboardRoute
   '/login': typeof PublicLoginRoute
   '/register': typeof PublicRegisterRoute
@@ -61,6 +77,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authed': typeof AuthedRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
+  '/_authed/activity-log': typeof AuthedActivityLogRoute
+  '/_authed/attributes': typeof AuthedAttributesRoute
   '/_authed/dashboard': typeof AuthedDashboardRoute
   '/_public/login': typeof PublicLoginRoute
   '/_public/register': typeof PublicRegisterRoute
@@ -68,13 +86,27 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/register'
+  fullPaths:
+    | '/'
+    | '/activity-log'
+    | '/attributes'
+    | '/dashboard'
+    | '/login'
+    | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login' | '/register'
+  to:
+    | '/'
+    | '/activity-log'
+    | '/attributes'
+    | '/dashboard'
+    | '/login'
+    | '/register'
   id:
     | '__root__'
     | '/_authed'
     | '/_public'
+    | '/_authed/activity-log'
+    | '/_authed/attributes'
     | '/_authed/dashboard'
     | '/_public/login'
     | '/_public/register'
@@ -130,14 +162,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedDashboardRouteImport
       parentRoute: typeof AuthedRoute
     }
+    '/_authed/attributes': {
+      id: '/_authed/attributes'
+      path: '/attributes'
+      fullPath: '/attributes'
+      preLoaderRoute: typeof AuthedAttributesRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/activity-log': {
+      id: '/_authed/activity-log'
+      path: '/activity-log'
+      fullPath: '/activity-log'
+      preLoaderRoute: typeof AuthedActivityLogRouteImport
+      parentRoute: typeof AuthedRoute
+    }
   }
 }
 
 interface AuthedRouteChildren {
+  AuthedActivityLogRoute: typeof AuthedActivityLogRoute
+  AuthedAttributesRoute: typeof AuthedAttributesRoute
   AuthedDashboardRoute: typeof AuthedDashboardRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedActivityLogRoute: AuthedActivityLogRoute,
+  AuthedAttributesRoute: AuthedAttributesRoute,
   AuthedDashboardRoute: AuthedDashboardRoute,
 }
 
