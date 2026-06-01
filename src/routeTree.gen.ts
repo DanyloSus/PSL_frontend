@@ -12,11 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AuthedRouteImport } from './routes/_authed'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
-import { Route as PublicRegisterRouteImport } from './routes/_public/register'
-import { Route as PublicLoginRouteImport } from './routes/_public/login'
+import { Route as PublicAuthRouteImport } from './routes/_public/_auth'
 import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
 import { Route as AuthedAttributesRouteImport } from './routes/_authed/attributes'
 import { Route as AuthedActivityLogRouteImport } from './routes/_authed/activity-log'
+import { Route as PublicAuthRegisterRouteImport } from './routes/_public/_auth/register'
+import { Route as PublicAuthLoginRouteImport } from './routes/_public/_auth/login'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -31,14 +32,8 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRoute,
 } as any)
-const PublicRegisterRoute = PublicRegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => PublicRoute,
-} as any)
-const PublicLoginRoute = PublicLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const PublicAuthRoute = PublicAuthRouteImport.update({
+  id: '/_auth',
   getParentRoute: () => PublicRoute,
 } as any)
 const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
@@ -56,22 +51,32 @@ const AuthedActivityLogRoute = AuthedActivityLogRouteImport.update({
   path: '/activity-log',
   getParentRoute: () => AuthedRoute,
 } as any)
+const PublicAuthRegisterRoute = PublicAuthRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => PublicAuthRoute,
+} as any)
+const PublicAuthLoginRoute = PublicAuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => PublicAuthRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/activity-log': typeof AuthedActivityLogRoute
   '/attributes': typeof AuthedAttributesRoute
   '/dashboard': typeof AuthedDashboardRoute
-  '/login': typeof PublicLoginRoute
-  '/register': typeof PublicRegisterRoute
+  '/login': typeof PublicAuthLoginRoute
+  '/register': typeof PublicAuthRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/activity-log': typeof AuthedActivityLogRoute
   '/attributes': typeof AuthedAttributesRoute
   '/dashboard': typeof AuthedDashboardRoute
-  '/login': typeof PublicLoginRoute
-  '/register': typeof PublicRegisterRoute
+  '/login': typeof PublicAuthLoginRoute
+  '/register': typeof PublicAuthRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,9 +85,10 @@ export interface FileRoutesById {
   '/_authed/activity-log': typeof AuthedActivityLogRoute
   '/_authed/attributes': typeof AuthedAttributesRoute
   '/_authed/dashboard': typeof AuthedDashboardRoute
-  '/_public/login': typeof PublicLoginRoute
-  '/_public/register': typeof PublicRegisterRoute
+  '/_public/_auth': typeof PublicAuthRouteWithChildren
   '/_public/': typeof PublicIndexRoute
+  '/_public/_auth/login': typeof PublicAuthLoginRoute
+  '/_public/_auth/register': typeof PublicAuthRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,9 +114,10 @@ export interface FileRouteTypes {
     | '/_authed/activity-log'
     | '/_authed/attributes'
     | '/_authed/dashboard'
-    | '/_public/login'
-    | '/_public/register'
+    | '/_public/_auth'
     | '/_public/'
+    | '/_public/_auth/login'
+    | '/_public/_auth/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -141,18 +148,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/_public/register': {
-      id: '/_public/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof PublicRegisterRouteImport
-      parentRoute: typeof PublicRoute
-    }
-    '/_public/login': {
-      id: '/_public/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof PublicLoginRouteImport
+    '/_public/_auth': {
+      id: '/_public/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicAuthRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_authed/dashboard': {
@@ -176,6 +176,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedActivityLogRouteImport
       parentRoute: typeof AuthedRoute
     }
+    '/_public/_auth/register': {
+      id: '/_public/_auth/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof PublicAuthRegisterRouteImport
+      parentRoute: typeof PublicAuthRoute
+    }
+    '/_public/_auth/login': {
+      id: '/_public/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof PublicAuthLoginRouteImport
+      parentRoute: typeof PublicAuthRoute
+    }
   }
 }
 
@@ -194,15 +208,27 @@ const AuthedRouteChildren: AuthedRouteChildren = {
 const AuthedRouteWithChildren =
   AuthedRoute._addFileChildren(AuthedRouteChildren)
 
+interface PublicAuthRouteChildren {
+  PublicAuthLoginRoute: typeof PublicAuthLoginRoute
+  PublicAuthRegisterRoute: typeof PublicAuthRegisterRoute
+}
+
+const PublicAuthRouteChildren: PublicAuthRouteChildren = {
+  PublicAuthLoginRoute: PublicAuthLoginRoute,
+  PublicAuthRegisterRoute: PublicAuthRegisterRoute,
+}
+
+const PublicAuthRouteWithChildren = PublicAuthRoute._addFileChildren(
+  PublicAuthRouteChildren,
+)
+
 interface PublicRouteChildren {
-  PublicLoginRoute: typeof PublicLoginRoute
-  PublicRegisterRoute: typeof PublicRegisterRoute
+  PublicAuthRoute: typeof PublicAuthRouteWithChildren
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
-  PublicLoginRoute: PublicLoginRoute,
-  PublicRegisterRoute: PublicRegisterRoute,
+  PublicAuthRoute: PublicAuthRouteWithChildren,
   PublicIndexRoute: PublicIndexRoute,
 }
 
