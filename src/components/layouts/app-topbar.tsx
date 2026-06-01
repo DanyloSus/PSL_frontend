@@ -2,26 +2,13 @@ import { Plus, Search } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/ui/button";
+import { formatDate } from "@/utils/format-date";
+import { formatTime } from "@/utils/format-time";
 
 interface Props {
   now: Date;
   sectorLabel?: string;
   onLogActivity: () => void;
-}
-
-function formatDate(now: Date): string {
-  const weekday = now.toLocaleDateString("en-US", { weekday: "short" });
-  const month = now.toLocaleDateString("en-US", { month: "short" });
-
-  return `${weekday}, ${month} ${now.getDate()}`.toUpperCase();
-}
-
-function formatTime(now: Date): string {
-  return now.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  });
 }
 
 export function AppTopbar({
