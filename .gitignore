@@ -39,3 +39,7 @@ coverage
 
 *storybook.log
 storybook-static
+
+# local screenshots / playwright artifacts
+.playwright-mcp/
+/psl-*.png
