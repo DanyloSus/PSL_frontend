@@ -14,6 +14,7 @@ import { meQueryOptions, useLogout } from "@/features/auth/api/auth";
 import { statsQueryOptions } from "@/features/users/api/stats";
 import { useNow } from "@/hooks/use-now";
 import { statIcon } from "@/utils/stat-icon";
+import { statShortName } from "@/utils/stat-short-name";
 
 export const Route = createFileRoute("/_authed")({
   beforeLoad: async ({ context }) => {
@@ -46,7 +47,7 @@ function AuthedLayout() {
     id: entry.stat.id,
     icon: statIcon(entry.stat.icon),
     displayName: entry.stat.display_name,
-    shortName: entry.stat.key.toUpperCase().slice(0, 3),
+    shortName: statShortName(entry.stat.key),
     level: entry.level
   }));
 

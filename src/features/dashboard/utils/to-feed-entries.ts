@@ -1,3 +1,5 @@
+import { statShortName } from "@/utils/stat-short-name";
+
 export interface FeedHistorySource {
   id: string;
   activity_template_id: string;
@@ -39,10 +41,7 @@ export function toFeedEntries(
 ): FeedEntry[] {
   const titleById = new Map(activities.map(item => [item.id, item.title]));
   const shortById = new Map(
-    stats.map(entry => [
-      entry.stat.id,
-      entry.stat.key.toUpperCase().slice(0, 3)
-    ])
+    stats.map(entry => [entry.stat.id, statShortName(entry.stat.key)])
   );
 
   return history.map(entry => ({
