@@ -1,5 +1,7 @@
 import { LogOut } from "lucide-react";
 
+import { Button } from "@/ui/button";
+
 interface Props {
   username: string;
   email: string;
@@ -20,14 +22,16 @@ export function SidebarUser({ username, email, onLogout }: Props) {
           {email}
         </div>
       </div>
-      <button
+      <Button
         type="button"
+        variant="ghost"
+        size="icon-sm"
         onClick={onLogout}
         aria-label="Log out"
-        className="text-muted-foreground hover:text-danger transition-colors"
+        className="text-muted-foreground hover:text-danger"
       >
         <LogOut className="size-4" />
-      </button>
+      </Button>
     </div>
   );
 }

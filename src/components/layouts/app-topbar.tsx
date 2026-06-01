@@ -1,6 +1,7 @@
 import { Plus, Search } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
+import { Button } from "@/ui/button";
 
 interface Props {
   now: Date;
@@ -45,25 +46,27 @@ export function AppTopbar({
       </div>
 
       <div className="flex items-center gap-2">
-        <button
+        <Button
           type="button"
-          className="border-border-soft text-muted-foreground hover:text-foreground bg-surface-subtle hidden items-center gap-2 rounded-sm border px-3 py-1.5 font-mono text-[10px] tracking-[1px] transition-colors sm:flex"
+          variant="ghost"
+          className="border-border-soft text-muted-foreground hover:text-foreground bg-surface-subtle hidden h-auto gap-2 rounded-sm border px-3 py-1.5 font-mono text-[10px] tracking-[1px] sm:inline-flex"
         >
           <Search className="size-3.5" />
           SEARCH ACTIVITIES
           <span className="text-faint">⌘K</span>
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          size="icon-lg"
           onClick={onLogActivity}
           aria-label="Log activity"
-          className="bg-primary text-primary-foreground shadow-glow grid size-9 place-items-center rounded-sm lg:hidden"
+          className="shadow-glow rounded-sm lg:hidden"
         >
           <Plus
             className="size-5"
             strokeWidth={2.4}
           />
-        </button>
+        </Button>
       </div>
     </header>
   );

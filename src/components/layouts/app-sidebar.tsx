@@ -1,6 +1,7 @@
 import { BarChart3, LayoutDashboard, Plus, ScrollText } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
+import { Button } from "@/ui/button";
 
 import {
   SidebarAttributeRow,
@@ -64,10 +65,10 @@ export function AppSidebar({
         ))}
       </div>
 
-      <button
+      <Button
         type="button"
         onClick={onLogActivity}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow flex h-11 items-center justify-center gap-2 rounded-sm text-[13px] font-bold tracking-[1px]"
+        className="hover:bg-primary/90 shadow-glow h-11 gap-2 rounded-sm text-[13px] font-bold tracking-[1px]"
       >
         <Plus
           className="size-4"
@@ -75,7 +76,7 @@ export function AppSidebar({
         />
         LOG ACTIVITY
         <span className="font-mono text-[9px] opacity-60">⌘N</span>
-      </button>
+      </Button>
 
       <SidebarUser
         username={username}
