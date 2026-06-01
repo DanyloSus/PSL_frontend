@@ -7,7 +7,7 @@ import { LandingNav } from "./landing-nav";
 import { LandingPreview } from "./landing-preview";
 
 const FOOTER_TAG = "PSL · v0.1.0 · BUILT FOR THE GROWTH OBSESSED";
-const FOOTER_COPY = "© 2026 PSL SYSTEMS";
+const FOOTER_COPY = `© ${new Date().getFullYear()} PSL SYSTEMS`;
 
 export function LandingPage() {
   return (
