@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
+import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vitest/config";
 
 const dirname =
@@ -21,7 +22,31 @@ export default defineConfig({
       autoCodeSplitting: true
     }),
     react(),
-    tailwindcss()
+    tailwindcss(),
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+      pwaAssets: {
+        image: "public/favicon.svg"
+      },
+      manifest: {
+        name: "PSL — Personal Stat Log",
+        short_name: "PSL",
+        description: "Personal stat tracker built for the growth obsessed.",
+        theme_color: "#d6ff00",
+        background_color: "#05060a",
+        display: "standalone",
+        start_url: ".",
+        scope: "."
+      },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,svg,png,ico,woff2}"],
+        navigateFallback: "index.html"
+      },
+      devOptions: {
+        enabled: false
+      }
+    })
   ],
   server: {
     port: 3000
