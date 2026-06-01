@@ -1,7 +1,6 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 
 import { meQueryOptions } from "@/features/auth/api/auth";
-import { AuthShell } from "@/features/auth/components/auth-shell";
 
 export const Route = createFileRoute("/_public")({
   beforeLoad: async ({ context }) => {
@@ -14,9 +13,5 @@ export const Route = createFileRoute("/_public")({
 });
 
 function PublicLayout() {
-  return (
-    <AuthShell>
-      <Outlet />
-    </AuthShell>
-  );
+  return <Outlet />;
 }
