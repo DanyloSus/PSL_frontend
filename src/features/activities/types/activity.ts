@@ -14,6 +14,8 @@ export interface ActivityTemplateOut {
   description: string;
   input_type: ActivityInputType;
   is_enabled: boolean;
+  min_quantity: number;
+  max_quantity: number;
   effects: ActivityEffectOut[];
 }
 
