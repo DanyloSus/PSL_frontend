@@ -11,6 +11,10 @@ vi.mock("@tanstack/react-query", async importOriginal => {
   return { ...actual, useSuspenseQuery: vi.fn() };
 });
 
+vi.mock("../api/list", () => ({
+  activitiesQueryOptions: () => ({})
+}));
+
 const mutateAsync = vi.fn();
 
 vi.mock("../api/log", () => ({
