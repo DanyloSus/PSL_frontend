@@ -51,6 +51,10 @@ function AuthedLayout() {
     level: entry.level
   }));
 
+  const statShortById = new Map(
+    stats.map(entry => [entry.stat.id, statShortName(entry.stat.key)])
+  );
+
   const onLogout = () =>
     logout.mutate(undefined, {
       onSuccess: () => navigate({ to: "/login" })
@@ -69,6 +73,7 @@ function AuthedLayout() {
       <LogSheet
         isOpen={isOpen}
         onOpenChange={setOpen}
+        statShortById={statShortById}
       />
     </AppShell>
   );

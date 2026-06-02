@@ -11,6 +11,7 @@ import {
 } from "@/ui/sheet";
 import { cn } from "@/utils/cn";
 
+import { EffectPreview } from "./effect-preview";
 import { QuantityStepper } from "./quantity-stepper";
 import { MAX_QUANTITY, useLogSheet } from "../hooks/use-log-sheet";
 import { ActivityInputType } from "../types/activity";
@@ -26,9 +27,10 @@ const INPUT_TYPE_LABEL: Record<ActivityInputType, string> = {
 interface Props {
   isOpen: boolean;
   onOpenChange: (isNextOpen: boolean) => void;
+  statShortById: Map<string, string>;
 }
 
-export function LogSheet({ isOpen, onOpenChange }: Props) {
+export function LogSheet({ isOpen, onOpenChange, statShortById }: Props) {
   const sheet = useLogSheet(() => onOpenChange(false));
 
   return (
@@ -84,6 +86,10 @@ export function LogSheet({ isOpen, onOpenChange }: Props) {
               <div className="text-muted-foreground mt-1 font-mono text-[10px]">
                 {INPUT_TYPE_LABEL[activity.input_type]}
               </div>
+              <EffectPreview
+                effects={activity.effects}
+                statShortById={statShortById}
+              />
             </button>
           ))}
           {sheet.visible.length === 0 && (
