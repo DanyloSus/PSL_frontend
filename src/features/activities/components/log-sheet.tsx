@@ -13,7 +13,7 @@ import { cn } from "@/utils/cn";
 
 import { EffectPreview } from "./effect-preview";
 import { QuantityStepper } from "./quantity-stepper";
-import { MAX_QUANTITY, useLogSheet } from "../hooks/use-log-sheet";
+import { useLogSheet } from "../hooks/use-log-sheet";
 import { ActivityInputType } from "../types/activity";
 
 const TAG_NEW_ENTRY = "// NEW ENTRY";
@@ -101,17 +101,37 @@ export function LogSheet({ isOpen, onOpenChange, statShortById }: Props) {
         {sheet.selected && (
           <div className="border-border-soft mt-3 border-t pt-3">
             {sheet.selected.input_type === ActivityInputType.Quantity && (
-              <QuantityStepper
-                value={sheet.quantity}
-                min={1}
-                max={MAX_QUANTITY}
-                onChange={sheet.setQuantity}
-              />
+              <>
+                <QuantityStepper
+                  value={sheet.quantity}
+                  min={sheet.selected.min_quantity}
+                  max={sheet.selected.max_quantity}
+                  onChange={sheet.setQuantity}
+                />
+                {sheet.quantityError && (
+                  <p
+                    role="alert"
+                    aria-live="assertive"
+                    className="text-danger mt-2 font-mono text-[11px] tracking-[0.5px]"
+                  >
+                    {sheet.quantityError}
+                  </p>
+                )}
+              </>
+            )}
+            {sheet.submitError && (
+              <p
+                role="alert"
+                aria-live="assertive"
+                className="border-destructive/40 bg-destructive/10 text-destructive mt-3 rounded-sm border px-3 py-2 font-mono text-[11px] tracking-[0.5px]"
+              >
+                {sheet.submitError}
+              </p>
             )}
             <Button
               type="button"
               onClick={sheet.onSubmit}
-              disabled={sheet.isPending}
+              disabled={sheet.isPending || Boolean(sheet.quantityError)}
               className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow mt-3 h-12 w-full text-sm font-bold tracking-[1px]"
             >
               {sheet.isPending ? "LOGGING…" : "CONFIRM LOG"}
