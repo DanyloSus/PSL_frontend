@@ -85,14 +85,19 @@ See skill: `pipeline-orchestration`.
 
 ## §H — Git / PR
 
-| Task                | Skill                      |
-| ------------------- | -------------------------- |
-| Conventional commit | `git-commit`               |
-| Squash branch       | `git-squash`               |
-| Commit + squash     | `git-commit-squash`        |
-| PR description      | `pull-request-description` |
+| Task                  | Skill                      |
+| --------------------- | -------------------------- |
+| Conventional commit   | `git-commit`               |
+| Squash branch         | `git-squash`               |
+| Commit + squash       | `git-commit-squash`        |
+| Commit + push (split) | `git-commit-push`          |
+| Branch naming         | `git-branch`               |
+| PR description        | `pull-request-description` |
+| Worktree → PR         | `worktree-task`            |
+| Close worktree        | `worktree-close`           |
 
 Conventional Commits required (`feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `deps`, `perf`, `revert`, `ci`, `build`).
+Branch format: `(feature|bugfix|refactor)/<ticket>/<desc>` (drop ticket when none).
 
 ## §I — Storybook
 
@@ -107,6 +112,13 @@ Conventional Commits required (`feat`, `fix`, `docs`, `refactor`, `test`, `chore
 | Lint        | `react-code-quality`      | `npm run lint`             |
 | Type check  | `react-code-quality`      | `npm run build` (`tsc -b`) |
 | Code review | **Engine:** `code-review` | Parallel agents            |
+
+## §K — Architecture / Planning
+
+| Task                               | Skill                           |
+| ---------------------------------- | ------------------------------- |
+| Find deepening/refactor candidates | `improve-codebase-architecture` |
+| Stress-test a plan / design        | `grill-me`                      |
 
 ## Critical Rules (always enforced)
 
